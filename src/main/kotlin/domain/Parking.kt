@@ -14,7 +14,7 @@ data class Parking (val vehicles : MutableSet<Vehicle>) {
      * retorna false.
      */
     fun addVehicle(vehicle: Vehicle): Boolean {
-        if(vehicles.size <= maxParkingSlots) {
+        if(vehicles.size != maxParkingSlots) {
             vehicles.add(vehicle)
             return true
         } else {
