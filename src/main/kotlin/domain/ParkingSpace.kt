@@ -17,7 +17,7 @@ data class ParkingSpace (var vehicle : Vehicle, val parking: Parking) {
      */
     fun checkOutVehicle(plate: String): Unit {
         var foundVehicle: Vehicle? = parking.vehicles.find { it.hashCode() == plate.hashCode() }
-        foundVehicle?.let { foundVehicle.discountCard?.let { onSuccess(calculateFee(foundVehicle.type, this.parkedTime, true)) } ?:
+        foundVehicle?.let { parking.vehicles.remove(foundVehicle);foundVehicle.discountCard?.let { onSuccess(calculateFee(foundVehicle.type, this.parkedTime, true)) } ?:
         run { onSuccess(calculateFee(foundVehicle.type, this.parkedTime, false))} } ?: run { onError() }
     }
 
