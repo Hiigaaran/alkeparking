@@ -6,6 +6,12 @@ import java.nio.charset.Charset
 import java.util.Calendar
 import java.util.Random
 
+/**
+ * Challenge kotlin
+ * @since 23-05-2022
+ * @author Diana Cerda
+ * @author Simon Morales
+ */
 fun main() {
     /***
      * Ejercicio 1: ¿Por que se define vehicles como un set?
