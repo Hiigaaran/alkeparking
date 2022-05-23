@@ -3,6 +3,12 @@ package src.main.kotlin.domain
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
+/**
+ * Challenge kotlin
+ * @since 23-05-2022
+ * @author Diana Cerda
+ * @author Simon Morales
+ */
 data class ParkingSpace (var vehicle : Vehicle, val parking: Parking) {
     /**
      * Ejercicio 4.1: Se agrega propiedad parkedTime en ParkingSpace para calcular el tiempo total de
@@ -17,8 +23,12 @@ data class ParkingSpace (var vehicle : Vehicle, val parking: Parking) {
      */
     fun checkOutVehicle(plate: String): Unit {
         var foundVehicle: Vehicle? = parking.vehicles.find { it.hashCode() == plate.hashCode() }
-        foundVehicle?.let { parking.vehicles.remove(foundVehicle);foundVehicle.discountCard?.let { onSuccess(calculateFee(foundVehicle.type, this.parkedTime, true)) } ?:
-        run { onSuccess(calculateFee(foundVehicle.type, this.parkedTime, false))} } ?: run { onError() }
+        foundVehicle?.let {
+            parking.vehicles.remove(foundVehicle)
+            foundVehicle.discountCard?.let {
+                onSuccess(calculateFee(foundVehicle.type, this.parkedTime, true)) } ?:
+                run { onSuccess(calculateFee(foundVehicle.type, this.parkedTime, false))} } ?:
+                run { onError() }
     }
 
     /**

@@ -1,5 +1,11 @@
 package src.main.kotlin.domain
 
+/**
+ * Challenge kotlin
+ * @since 23-05-2022
+ * @author Diana Cerda
+ * @author Simon Morales
+ */
 data class Parking (val vehicles : MutableSet<Vehicle>) {
 
     /**
