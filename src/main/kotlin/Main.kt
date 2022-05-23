@@ -50,12 +50,12 @@ fun main() {
         else println("Sorry, the check-in has failed")
     }
 
-    val parkingSpace = ParkingSpace(car, parking)
+    val parkingSpace = ParkingSpace(bus, parking)
 
-    parkingSpace.checkOutVehicle("bus.plate")
+    parkingSpace.checkOutVehicle(bus.plate)
 
-
-
+    parking.getCumulativeGains()
+    parking.listVehicles()
 }
 
 fun plateGenerator(): String {

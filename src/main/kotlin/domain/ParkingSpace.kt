@@ -1,15 +1,16 @@
 package src.main.kotlin.domain
 
 import java.util.Calendar
+import java.util.concurrent.TimeUnit
 
 data class ParkingSpace (var vehicle : Vehicle, val parking: Parking) {
     /**
      * Ejercicio 4.1: Se agrega propiedad parkedTime en ParkingSpace para calcular el tiempo total de
      * estadia del vehiculo en el parking.
      */
-    val MINUTES_IN_MILISECONDS = 60000
     val parkedTime: Long
-        get() = (Calendar.getInstance().timeInMillis - vehicle.checkInTime.timeInMillis) / MINUTES_IN_MILISECONDS
+        get() = (TimeUnit.MILLISECONDS.toMinutes(Math.abs(Calendar.getInstance().timeInMillis - vehicle.checkInTime.timeInMillis)))
+
 
     /**
      * Ejercicio 7.1, 7.2 y 7.3
@@ -20,20 +21,30 @@ data class ParkingSpace (var vehicle : Vehicle, val parking: Parking) {
         run { onSuccess(calculateFee(foundVehicle.type, this.parkedTime, false))} } ?: run { onError() }
     }
 
+    /**
+     * Ejercicio 10.1
+     */
     fun onSuccess(fee: Int): Unit {
-        println("Your fee is $fee . Come back soon.")
+        println("Your fee is $$fee . Come back soon.")
     }
 
     fun onError(): Unit {
         println("Se ejecuto onError")
     }
 
+    /**
+     * Ejercicio 8.1, 8.2, 9.1 y 9.2
+     */
     fun calculateFee(type: VehicleType, parkedTime: Long, hasDiscountCard: Boolean): Int {
-        var subFee: Long = 0L
+        var subFee: Long = 0
+        var totalFee: Int = 0
         when{
             parkedTime <= 120 -> subFee = type.fee.toLong()
             parkedTime > 120 -> subFee = type.fee + ((parkedTime - 120)/15) * 5
         }
-        if(hasDiscountCard) return (subFee * 0.85).toInt() else return subFee.toInt()
+        if(hasDiscountCard) totalFee = (subFee * 0.85).toInt() else totalFee = subFee.toInt()
+        parking.cumulativeGains = Pair(parking.cumulativeGains.first + 1, parking.cumulativeGains.second + totalFee)
+
+        return totalFee
     }
 }
