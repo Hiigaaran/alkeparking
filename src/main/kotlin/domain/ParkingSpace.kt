@@ -44,13 +44,16 @@ data class ParkingSpace (var vehicle : Vehicle, val parking: Parking) {
 
     /**
      * Ejercicio 8.1, 8.2, 9.1 y 9.2
+     * Correccion -> valores long de 2 horas y 15 minutos para calcular el fee
      */
     fun calculateFee(type: VehicleType, parkedTime: Long, hasDiscountCard: Boolean): Int {
         var subFee: Long = 0
         var totalFee: Int = 0
+        var twoHours: Long = 720000L
+        var fifteenMinutes: Long = 90000L
         when{
-            parkedTime <= 120 -> subFee = type.fee.toLong()
-            parkedTime > 120 -> subFee = type.fee + ((parkedTime - 120)/15) * 5
+            parkedTime <= twoHours -> subFee = type.fee.toLong()
+            parkedTime > twoHours -> subFee = type.fee + ((parkedTime - twoHours)/fifteenMinutes) * 5
         }
         if(hasDiscountCard) totalFee = (subFee * 0.85).toInt() else totalFee = subFee.toInt()
         parking.cumulativeGains = Pair(parking.cumulativeGains.first + 1, parking.cumulativeGains.second + totalFee)

@@ -21,8 +21,9 @@ fun main() {
      * Ejercicio 2:
      */
     val calendarAdv: Calendar = Calendar.getInstance()
-    calendarAdv.set(2022, 5,23, 13, 0, 0)
+    calendarAdv.set(2022, 5,22)
     val car = Vehicle(plateGenerator(), VehicleType.CAR, Calendar.getInstance(), "DISCOUNT")
+            println(calendarAdv)
     val moto = Vehicle(plateGenerator(), VehicleType.BIKE, Calendar.getInstance(), null)
     val minibus = Vehicle(plateGenerator(), VehicleType.MINIBUS, Calendar.getInstance(), null)
     val bus = Vehicle(plateGenerator(), VehicleType.BUS, calendarAdv, "DISCOUNT")
@@ -59,6 +60,7 @@ fun main() {
     val parkingSpace = ParkingSpace(bus, parking)
 
     parkingSpace.checkOutVehicle(bus.plate)
+    parkingSpace.checkOutVehicle(moto.plate)
 
     parking.getCumulativeGains()
     parking.listVehicles()
