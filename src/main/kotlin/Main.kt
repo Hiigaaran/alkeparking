@@ -3,6 +3,7 @@ import src.main.kotlin.domain.ParkingSpace
 import src.main.kotlin.domain.Vehicle
 import src.main.kotlin.domain.VehicleType
 import java.nio.charset.Charset
+import java.time.LocalDateTime
 import java.util.Calendar
 import java.util.Random
 
@@ -21,28 +22,31 @@ fun main() {
      * Ejercicio 2:
      */
     val calendarAdv: Calendar = Calendar.getInstance()
-    calendarAdv.set(2022, 5,22)
-    val car = Vehicle(plateGenerator(), VehicleType.CAR, Calendar.getInstance(), "DISCOUNT")
+    calendarAdv.set(2022, 5,24, 17, 0, 0)
+
+    val localDateTimeAdv = LocalDateTime.now().minusHours(3)
+
+    val car = Vehicle(plateGenerator(), VehicleType.CAR, LocalDateTime.now(), "DISCOUNT")
             println(calendarAdv)
-    val moto = Vehicle(plateGenerator(), VehicleType.BIKE, Calendar.getInstance(), null)
-    val minibus = Vehicle(plateGenerator(), VehicleType.MINIBUS, Calendar.getInstance(), null)
-    val bus = Vehicle(plateGenerator(), VehicleType.BUS, calendarAdv, "DISCOUNT")
-    val car2 = Vehicle(plateGenerator(), VehicleType.CAR, Calendar.getInstance(), null)
-    val car1 = Vehicle(plateGenerator(), VehicleType.CAR, Calendar.getInstance(), "DISCOUNT")
-    val moto1 = Vehicle(plateGenerator(), VehicleType.BIKE, Calendar.getInstance(), null)
-    val minibus1 = Vehicle(plateGenerator(), VehicleType.MINIBUS, Calendar.getInstance(), null)
-    val bus1 = Vehicle(plateGenerator(), VehicleType.BUS, Calendar.getInstance(), "DISCOUNT")
-    val car3 = Vehicle(plateGenerator(), VehicleType.CAR, Calendar.getInstance(), null)
-    val car5 = Vehicle(plateGenerator(), VehicleType.CAR, Calendar.getInstance(), "DISCOUNT")
-    val moto2 = Vehicle(plateGenerator(), VehicleType.BIKE, Calendar.getInstance(), null)
-    val minibus2 = Vehicle(plateGenerator(), VehicleType.MINIBUS, Calendar.getInstance(), null)
-    val bus2 = Vehicle(plateGenerator(), VehicleType.BUS, Calendar.getInstance(), "DISCOUNT")
-    val car4 = Vehicle(plateGenerator(), VehicleType.CAR, Calendar.getInstance(), null)
-    val car7 = Vehicle(plateGenerator(), VehicleType.CAR, Calendar.getInstance(), "DISCOUNT")
-    val moto3 = Vehicle(plateGenerator(), VehicleType.BIKE, Calendar.getInstance(), null)
-    val minibus3 = Vehicle(plateGenerator(), VehicleType.MINIBUS, Calendar.getInstance(), null)
-    val bus3 = Vehicle(plateGenerator(), VehicleType.BUS, Calendar.getInstance(), "DISCOUNT")
-    val car6 = Vehicle(plateGenerator(), VehicleType.CAR, Calendar.getInstance(), null)
+    val moto = Vehicle(plateGenerator(), VehicleType.BIKE, LocalDateTime.now(), null)
+    val minibus = Vehicle(plateGenerator(), VehicleType.MINIBUS, LocalDateTime.now(), null)
+    val bus = Vehicle(plateGenerator(), VehicleType.BUS, localDateTimeAdv, "DISCOUNT")
+    val car2 = Vehicle(plateGenerator(), VehicleType.CAR, LocalDateTime.now(), null)
+    val car1 = Vehicle(plateGenerator(), VehicleType.CAR, LocalDateTime.now(), "DISCOUNT")
+    val moto1 = Vehicle(plateGenerator(), VehicleType.BIKE, LocalDateTime.now(), null)
+    val minibus1 = Vehicle(plateGenerator(), VehicleType.MINIBUS, LocalDateTime.now(), null)
+    val bus1 = Vehicle(plateGenerator(), VehicleType.BUS, LocalDateTime.now(), "DISCOUNT")
+    val car3 = Vehicle(plateGenerator(), VehicleType.CAR, LocalDateTime.now(), null)
+    val car5 = Vehicle(plateGenerator(), VehicleType.CAR, LocalDateTime.now(), "DISCOUNT")
+    val moto2 = Vehicle(plateGenerator(), VehicleType.BIKE, LocalDateTime.now(), null)
+    val minibus2 = Vehicle(plateGenerator(), VehicleType.MINIBUS, LocalDateTime.now(), null)
+    val bus2 = Vehicle(plateGenerator(), VehicleType.BUS, LocalDateTime.now(), "DISCOUNT")
+    val car4 = Vehicle(plateGenerator(), VehicleType.CAR, LocalDateTime.now(), null)
+    val car7 = Vehicle(plateGenerator(), VehicleType.CAR, LocalDateTime.now(), "DISCOUNT")
+    val moto3 = Vehicle(plateGenerator(), VehicleType.BIKE, LocalDateTime.now(), null)
+    val minibus3 = Vehicle(plateGenerator(), VehicleType.MINIBUS, LocalDateTime.now(), null)
+    val bus3 = Vehicle(plateGenerator(), VehicleType.BUS, LocalDateTime.now(), "DISCOUNT")
+    val car6 = Vehicle(plateGenerator(), VehicleType.CAR, LocalDateTime.now(), null)
 
     val parking = Parking(mutableSetOf())
     val arrayOfVehicles = arrayOf(car, moto, minibus, bus, car2, car1, car3, car4, car5, car6, car7, bus1
@@ -59,8 +63,8 @@ fun main() {
 
     val parkingSpace = ParkingSpace(bus, parking)
 
-    parkingSpace.checkOutVehicle(bus.plate)
-    parkingSpace.checkOutVehicle(moto.plate)
+    parkingSpace.checkOutVehicle(bus.plate, onSuccess = ::onSuccess, ::onError)
+    parkingSpace.checkOutVehicle(moto.plate, ::onSuccess, ::onError)
 
     parking.getCumulativeGains()
     parking.listVehicles()
@@ -70,4 +74,15 @@ fun plateGenerator(): String {
     val plateArray: ByteArray = ByteArray(7)
     Random().nextBytes(plateArray)
     return String(plateArray, Charset.forName("UTF-8"))
+}
+
+/**
+ * Ejercicio 10.1
+ */
+fun onSuccess(fee: Int): Unit {
+    println("Your fee is $$fee . Come back soon.")
+}
+
+fun onError(): Unit {
+    println("Se ejecuto onError")
 }
