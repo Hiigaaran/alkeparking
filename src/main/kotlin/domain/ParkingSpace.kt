@@ -2,8 +2,7 @@ package src.main.kotlin.domain
 
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
-import java.util.*
-import java.util.concurrent.TimeUnit
+
 
 
 /**
@@ -18,8 +17,6 @@ data class ParkingSpace (var vehicle : Vehicle, val parking: Parking) {
      * estadia del vehiculo en el parking.
      */
     val parkedTime: Long
-        //get() = (TimeUnit.MILLISECONDS.toMinutes(Math.abs(Calendar.getInstance().timeInMillis - vehicle.checkInTime.timeInMillis)))
-        //get() = TimeUnit.MINUTES.convert(Math.abs(Calendar.getInstance().timeInMillis - vehicle.checkInTime.timeInMillis), TimeUnit.MILLISECONDS)
         get() = vehicle.checkInTime.until(LocalDateTime.now(), ChronoUnit.MINUTES)
 
 

@@ -21,13 +21,9 @@ fun main() {
      *
      * Ejercicio 2:
      */
-    val calendarAdv: Calendar = Calendar.getInstance()
-    calendarAdv.set(2022, 5,24, 17, 0, 0)
-
     val localDateTimeAdv = LocalDateTime.now().minusHours(3)
 
     val car = Vehicle(plateGenerator(), VehicleType.CAR, LocalDateTime.now(), "DISCOUNT")
-            println(calendarAdv)
     val moto = Vehicle(plateGenerator(), VehicleType.BIKE, LocalDateTime.now(), null)
     val minibus = Vehicle(plateGenerator(), VehicleType.MINIBUS, LocalDateTime.now(), null)
     val bus = Vehicle(plateGenerator(), VehicleType.BUS, localDateTimeAdv, "DISCOUNT")
